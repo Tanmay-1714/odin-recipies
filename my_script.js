@@ -9,31 +9,60 @@ function computer(){
                 return "scissors"
         }
 }
-function human(){
-    let choice = prompt("enter the choice")
-    return choice;
-}
-function calc() {
-    while (true) {
-        let c = computer();
-        let h = human();
 
-        console.log(`Computer: ${c}, Human: ${h}`);
+function calc(h) {
+    let c = computer();
 
-        if (c === h) continue;
+    console.log(`Computer: ${c}, Human: ${h}`);
 
-        if (
-            (h === "rock" && c === "scissors") ||
-            (h === "paper" && c === "rock") ||
-            (h === "scissors" && c === "paper")
-        ) {
-            return true;
-        } else {
-            return false;
-        }
+    if (c === h) return 0;
+
+    if (
+        (h === "rock" && c === "scissors") ||
+        (h === "paper" && c === "rock") ||
+        (h === "scissors" && c === "paper")
+    ) {
+        return 1;
+    } else {
+        return 2;
     }
 }
 
-if(!calc()){
-    console.log("computer wins");
-}else{console.log("human wins");}
+let score = document.querySelector("#score");
+
+let scoreh =0;
+let scorec =0;
+function play(given){
+    let result = calc(given);
+    if(result === 0){
+        console.log("draw");
+    }
+    else{
+        if(result === 1){
+            scoreh+=1;
+            console.log("human wins")
+        }
+        else{
+            scorec+=1;
+            console.log("computer wins")
+        }
+    }
+    score.textContent = `score is human(${scoreh}) - computer(${scorec})`;
+}
+
+let button1 = document.querySelector("#j");
+button1.addEventListener('click',()=>{
+    play("scissors");
+});
+
+let button2 = document.querySelector("#k");
+button2.addEventListener('click',()=>{
+    play("paper");
+});
+
+let button3 = document.querySelector("#m");
+button3.addEventListener('click',()=>{
+    play("rock");
+});
+
+
